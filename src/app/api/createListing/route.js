@@ -6,13 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function POST(req) {
-  // return new Response("Hello, POST!");
-
-  // Get data submitted in request's body.
-  // console.log("req.body: ", req.json()``);
-
   const body = await req.text();
-  // const json = JSON.stringify(body);
 
   console.log("body: ", body);
 
@@ -29,8 +23,6 @@ export async function POST(req) {
 
   const userPrompt = `Please write a property listing based on the information included in this JSON: ${body}`;
 
-  // console.log("prompt: ", prompt);
-
   const response = await openai.createChatCompletion({
     model: "gpt-4",
     messages: [
@@ -45,11 +37,5 @@ export async function POST(req) {
     ],
   });
 
-  // Found the name.
-  // Sends a HTTP success code
-  // res.status(200).json({ data: `${response.data.choices[0].message.content}` });
-  // res.status(200).json({ data: "Hello" });
-
   return new Response(response.data.choices[0].message.content);
-  // return new Response(json);
 }
